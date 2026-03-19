@@ -1,0 +1,23 @@
+{
+    "name": "hexawebsystems/laravel-hexa-package-google-speech",
+    "description": "Google Speech \u2014 Browser-native Web Speech API voice-to-text integration for Hexa Web Systems.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "hexa_package_google_speech\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "hexa_package_google_speech\\Providers\\GoogleSpeechServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
