@@ -28,21 +28,24 @@ class GoogleSpeechServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/../../routes/google-speech.php');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'google-speech');
-        $this->registerSidebarItems();
+
+        // Sidebar links — registered via PackageRegistryService with auto permission checks
+        if (!config('hexa.app_controls_sidebar', false)) {
+            $registry = app(\hexa_core\Services\PackageRegistryService::class);
+            $registry->registerSidebarLink('settings.google-speech', 'Google Speech', 'M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z', 'Google Speech', 'google-speech', 60);
+        }
+
+        // Settings card on /settings page
+        $this->registerSettingsCard();
     }
 
     /**
-     * Push sidebar menu items and settings card into the core layout stacks.
+     * Register settings card on the core settings page.
      *
      * @return void
      */
-    private function registerSidebarItems(): void
+    private function registerSettingsCard(): void
     {
-        view()->composer('layouts.app', function ($view) {
-            if (config('hexa.app_controls_sidebar', false)) return;
-            $view->getFactory()->startPush('sidebar-menu', view('google-speech::partials.sidebar-menu')->render());
-        });
-
         view()->composer('settings.index', function ($view) {
             $view->getFactory()->startPush('settings-cards', view('google-speech::partials.settings-card')->render());
         });
