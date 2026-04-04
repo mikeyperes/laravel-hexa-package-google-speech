@@ -49,5 +49,12 @@ class GoogleSpeechServiceProvider extends ServiceProvider
         view()->composer('settings.index', function ($view) {
             $view->getFactory()->startPush('settings-cards', view('google-speech::partials.settings-card')->render());
         });
-    }
+    
+        // Documentation
+        if (class_exists(\hexa_core\Services\DocumentationService::class)) {
+            app(\hexa_core\Services\DocumentationService::class)->register('google-speech', 'Google Speech', 'hexawebsystems/laravel-hexa-package-google-speech', [
+                ['title' => 'Overview', 'content' => '<p>Google Cloud Speech-to-Text API integration for voice transcription.</p>'],
+            ]);
+        }
+}
 }
