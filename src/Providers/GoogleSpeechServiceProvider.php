@@ -32,7 +32,8 @@ class GoogleSpeechServiceProvider extends ServiceProvider
         // Sidebar links — package-owned and auto-wired into the core registry.
         $registry = app(\hexa_core\Services\PackageRegistryService::class);
         $registry->registerSidebarLink('settings.google-speech', 'Google Speech', 'M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z', 'Google Speech', 'google-speech', 60);
-        $registry->registerPackage('google-speech', 'hexawebsystems/laravel-hexa-package-google-speech', [
+        if (method_exists($registry, 'registerPackage')) {
+            $registry->registerPackage('google-speech', 'hexawebsystems/laravel-hexa-package-google-speech', [
             'title' => 'Google Speech',
             'settingsRoute' => 'settings.google-speech',
             'docsSlug' => 'google-speech',
@@ -44,7 +45,8 @@ class GoogleSpeechServiceProvider extends ServiceProvider
                 ['label' => 'Google Cloud Console', 'url' => 'https://console.cloud.google.com/'],
                 ['label' => 'Speech-to-Text Docs', 'url' => 'https://cloud.google.com/speech-to-text/docs'],
             ],
-        ]);
+            ]);
+        }
 
         // Settings card on /settings page
         $this->registerSettingsCard();
@@ -57,10 +59,8 @@ class GoogleSpeechServiceProvider extends ServiceProvider
      */
     private function registerSettingsCard(): void
     {
-        view()->composer('settings.index', function ($view) {
-            $view->getFactory()->startPush('settings-cards', view('google-speech::partials.settings-card')->render());
-        });
-    
+        // Legacy settings-card push removed — core renders package cards from registry
+
         // Documentation
         if (class_exists(\hexa_core\Services\DocumentationService::class)) {
             app(\hexa_core\Services\DocumentationService::class)->register('google-speech', 'Google Speech', 'hexawebsystems/laravel-hexa-package-google-speech', [
