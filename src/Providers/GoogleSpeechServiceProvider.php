@@ -31,6 +31,10 @@ class GoogleSpeechServiceProvider extends ServiceProvider
 
         // Sidebar links — package-owned and auto-wired into the core registry.
         $registry = app(\hexa_core\Services\PackageRegistryService::class);
+            // [L1/L2 sidebar hierarchy — auto-registered]
+            $registry->registerDomainGroup('AI', 'M13 10V3L4 14h7v7l9-11h-7z', 50);
+            $registry->registerSectionGroup('Google Speech', 'AI', 'M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z', 56);
+            // [/L1/L2]
         $registry->registerSidebarLink('settings.google-speech', 'Google Speech', 'M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z', 'Google Speech', 'google-speech', 60);
         if (method_exists($registry, 'registerPackage')) {
             $registry->registerPackage('google-speech', 'hexawebsystems/laravel-hexa-package-google-speech', [
